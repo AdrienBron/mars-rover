@@ -3,7 +3,7 @@
 echo "🔍 Vérification des vulnérabilités NuGet..."
 
 # On liste les vulnérabilités
-vuln_output=$(dotnet list package --vulnerable)
+vuln_output=$(dotnet list package --vulnerable  --include-transitive)
 
 # On affiche le résultat
 echo "$vuln_output"

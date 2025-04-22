@@ -34,3 +34,11 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
+        
+      - name: ☀️ Résultat des tests
+        if: success()
+        run: echo "✅ Tous les tests ont réussi ! ☀️"
+
+      - name: 🌩️ Résultat des tests
+        if: failure()
+        run: echo "❌ Certains tests ont échoué... 🌩️"

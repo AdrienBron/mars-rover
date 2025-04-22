@@ -16,9 +16,6 @@ jobs:
       - name: 🔧 Donne les droits d'exécution au script
         run: chmod +x .github/scripts/*.sh
         
-      - name: 🔐 Vérifie les vulnérabilités NuGet
-        run: .github/scripts/check-vulnerabilities.sh
-        
       - name: 🚀 Vérifie le message de commit
         run: .github/scripts/check-emoji.sh "${{ github.event.head_commit.message }}"
 
@@ -43,6 +40,9 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
+        
+      - name: 🔐 Vérifie les vulnérabilités NuGet
+        run: .github/scripts/check-vulnerabilities.sh
         
       - name: ☀️ Résultat des tests
         if: success()

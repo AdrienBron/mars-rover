@@ -9,7 +9,7 @@ vuln_output=$(dotnet list package --vulnerable --include-transitive)
 echo "$vuln_output"
 
 # On check s'il y a une ligne qui parle de vulnérabilités
-if echo "$vuln_output" | grep -q "has the following vulnerable packages"; then
+if echo "$vuln_output" | grep -q "High"; then
   echo "❌ Des vulnérabilités ont été détectées !"
   exit 1
 else

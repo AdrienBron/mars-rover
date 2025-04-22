@@ -13,14 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         
-      - name: 🚀 Vérifie que le commit contient une fusée
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B)
-          echo "Dernier message de commit: $COMMIT_MSG"
-          if [[ "$COMMIT_MSG" != *🚀* ]]; then
-          echo "❌ Le message de commit doit contenir une fusée 🚀"
-          exit 1
-          fi
+      - name: 🔧 Donne les droits d'exécution au script
+        run: chmod +x .github/scripts/check-emoji.sh
+        
+      - name: 🚀 Vérifie le message de commit
+        run: .github/scripts/check-emoji.sh "${{ github.event.head_commit.message }}"
+
       - name: Cache NuGet packages
         uses: actions/cache@v3
         with:

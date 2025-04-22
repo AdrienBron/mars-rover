@@ -13,5 +13,5 @@ if echo "$vuln_output" | grep -q "High"; then
   echo "❌ Des vulnérabilités ont été détectées !"
   exit 1
 else
-  echo "✅ Aucun package vulnérable détecté."
+  echo "✅ Aucun package vulnérable détecté. $vuln_output"
 fi

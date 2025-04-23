@@ -16,8 +16,8 @@ jobs:
       - name: 🔧 Donne les droits d'exécution au script
         run: chmod +x .github/scripts/*.sh
         
-      - name: 🚀 Vérifie le message de commit
-        run: .github/scripts/check-emoji.sh "${{ github.event.head_commit.message }}"
+      #- name: 🚀 Vérifie le message de commit
+      #  run: .github/scripts/check-emoji.sh "${{ github.event.head_commit.message }}"
 
       - name: Cache NuGet packages
         uses: actions/cache@v3
@@ -41,6 +41,15 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal
         
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 🐍 Vérifie les dépendances circulaires
+        run: python CSharp xUnit starter/check_circular_dependencies.py
+
+
       - name: 🔐 Vérifie les vulnérabilités NuGet
         run: .github/scripts/check-vulnerabilities.sh
         

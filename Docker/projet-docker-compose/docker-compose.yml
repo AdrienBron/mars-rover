@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16
+    container_name: db
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: adrien
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: backend
+    environment:
+      DB_HOST: db
+      DB_NAME: mydb
+      DB_USER: adrien
+      DB_PASS: secret
+    depends_on:
+      - db
+    ports:
+      - "5050:5000"
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  db-data:

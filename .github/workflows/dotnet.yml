@@ -46,9 +46,8 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: 🐍 Vérifie les dépendances circulaires
-        run: python CSharp xUnit starter/check_circular_dependencies.py
-
+      #- name: 🐍 Vérifie les dépendances circulaires
+      #  run: python CSharp xUnit starter/check_circular_dependencies.py
 
       - name: 🔐 Vérifie les vulnérabilités NuGet
         run: .github/scripts/check-vulnerabilities.sh

@@ -22,4 +22,22 @@ def db_check():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
+@app.route("/messages")
+def messages():
+    try:
+        conn = psycopg2.connect(
+            host=os.getenv("DB_HOST"),
+            dbname=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASS"),
+        )
+        cur = conn.cursor()
+        cur.execute("SELECT id, text FROM messages")
+        results = [{"id": row[0], "text": row[1]} for row in cur.fetchall()]
+        cur.close()
+        conn.close()
+        return jsonify(results)
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
 app.run(host="0.0.0.0", port=5000)
